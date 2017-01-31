@@ -7,9 +7,11 @@ here = path.abspath(path.dirname(__file__))
 with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
+print(long_description)
+
 setup(
     name='tfyarn',
-    version='0.0.1.dev1',
+    version='0.0.1.dev3',
     description='TensorFlow on YARN',
     long_description=long_description,
     url='https://github.com/tobiajo/tfyarn',
