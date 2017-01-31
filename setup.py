@@ -11,7 +11,7 @@ print(long_description)
 
 setup(
     name='tfyarn',
-    version='0.0.1.dev3',
+    version='0.0.1.dev4',
     description='TensorFlow on YARN',
     long_description=long_description,
     url='https://github.com/tobiajo/tfyarn',
@@ -25,7 +25,7 @@ setup(
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python :: 2.7',
     ],
-    keywords='tensorflow yarn',
+    keywords='tf yarn tensorflow hadoop',
     packages=find_packages(exclude=['tests']),
     install_requires=[],
     extras_require={
