@@ -26,10 +26,10 @@ def createClusterSpec(job_name, task_index, container_id=None, am_address=None):
         time.sleep(0.2)
         cluster_spec_list = client.get_cluster_spec()
         if cluster_spec_list is None:
-            print('createTrainServer: clusterSpec: None')
+            print(container_id + ': createTrainServer: clusterSpec: None')
             pass
         elif len(cluster_spec_list) == 0:
-            print('createTrainServer: clusterSpec: (empty)')
+            print(container_id + ': createTrainServer: clusterSpec: (empty)')
             pass
         else:
             break
@@ -42,7 +42,7 @@ def createClusterSpec(job_name, task_index, container_id=None, am_address=None):
         elif container.jobName == 'ps':
             pses.append(container.ip + ':' + container.port)
     cluster_spec_map = {'worker': workers, 'ps': pses}
-    print('createTrainServer: clusterSpec: ', end='')
+    print(container_id + ': createTrainServer: clusterSpec: ', end='')
     print(cluster_spec_map)
 
     s.close()
