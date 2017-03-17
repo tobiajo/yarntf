@@ -7,7 +7,7 @@ import tensorflow
 import time
 
 
-def createTrainServer(job_name, task_index, container_id=None, am_address=None):
+def createClusterSpec(job_name, task_index, container_id=None, am_address=None):
     if container_id is None:
         container_id = os.environ['CONTAINER_ID']
     if am_address is None:
@@ -46,6 +46,4 @@ def createTrainServer(job_name, task_index, container_id=None, am_address=None):
     print(cluster_spec_map)
 
     s.close()
-    cluster = tensorflow.train.ClusterSpec(cluster_spec_map)
-    server = tensorflow.train.Server(cluster, job_name=job_name, task_index=task_index)
-    return server
+    return tensorflow.train.ClusterSpec(cluster_spec_map)

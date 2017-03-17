@@ -1,1 +1,1 @@
-from tfyarn.factory import createTrainServer
+from tfyarn.factory import createClusterSpec
