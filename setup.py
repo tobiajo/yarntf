@@ -25,7 +25,7 @@ setup(
     ],
     keywords='tf yarn tensorflow hadoop',
     packages=find_packages(exclude=['tests']),
-    install_requires=[],
+    install_requires=['grpc', 'tensorflow'],
     extras_require={
         'dev': ['check-manifest'],
         'test': ['coverage'],

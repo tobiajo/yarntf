@@ -1,4 +1,1 @@
-
-
-def main():
-    print("hello, distributed world")
+from tfyarn.factory import createTrainServer
