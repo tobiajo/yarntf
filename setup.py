@@ -9,7 +9,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='tfyarn',
-    version='0.0.1.dev6',
+    version='0.0.1.dev8',
     description='TensorFlow on YARN',
     long_description=long_description,
     url='https://github.com/tobiajo/tfyarn',
@@ -17,7 +17,7 @@ setup(
     author_email='tobias@johansson.xyz',
     license='Apache License 2.0',
     classifiers=[
-        'Development Status :: 1 - Planning',
+        'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Libraries',
         'License :: OSI Approved :: Apache Software License',
@@ -26,16 +26,4 @@ setup(
     keywords='tf yarn tensorflow hadoop',
     packages=find_packages(exclude=['tests']),
     install_requires=['grpc', 'tensorflow'],
-    extras_require={
-        'dev': ['check-manifest'],
-        'test': ['coverage'],
-    },
-    package_data={
-    },
-    data_files=[],
-    entry_points={
-        'console_scripts': [
-            'tfyarn=tfyarn:main',
-        ],
-    },
 )
