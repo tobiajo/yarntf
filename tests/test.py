@@ -9,7 +9,7 @@ def factory_test():
     for i in range(0, 3):
         time.sleep(0.25)
         thread = threading.Thread(target=tfyarn.createClusterSpec,
-                                  args=('worker', i, '555', str(2 - i), 'localhost:50051'))
+                                  args=('worker', i, 'A1', 'C' + str(2 - i), 'localhost:50051'))
         thread.start()
         threads.append(thread)
 
