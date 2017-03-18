@@ -36,11 +36,19 @@ def createClusterSpec(job_name, task_index, container_id=None, am_address=None):
 
     workers = []
     pses = []
+    last_worker_task_id = -1
+    last_ps_task_id = -1
     for container in cluster_spec_list:
+        print(container.taskIndex)
         if container.jobName == 'worker':
+            assert int(container.taskIndex) == last_worker_task_id + 1
+            last_worker_task_id = int(container.taskIndex)
             workers.append(container.ip + ':' + container.port)
         elif container.jobName == 'ps':
+            assert int(container.taskIndex) == last_ps_task_id + 1
+            last_ps_task_id = int(container.taskIndex)
             pses.append(container.ip + ':' + container.port)
+
     cluster_spec_map = {'worker': workers, 'ps': pses}
     print(container_id + ': createTrainServer: clusterSpec: ', end='')
     print(cluster_spec_map)
