@@ -38,16 +38,16 @@ def createClusterSpec(job_name, task_index, application_id=None, container_id=No
 
     workers = []
     pses = []
-    last_worker_task_id = -1
-    last_ps_task_id = -1
+    last_worker_task_index = -1
+    last_ps_task_index = -1
     for container in cluster_spec_list:
         if container.jobName == 'worker':
-            assert container.taskIndex == last_worker_task_id + 1
-            last_worker_task_id = container.taskIndex
+            assert container.taskIndex == last_worker_task_index + 1
+            last_worker_task_index = container.taskIndex
             workers.append(container.ip + ':' + str(container.port))
         elif container.jobName == 'ps':
-            assert container.taskIndex == last_ps_task_id + 1
-            last_ps_task_id = container.taskIndex
+            assert container.taskIndex == last_ps_task_index + 1
+            last_ps_task_index = container.taskIndex
             pses.append(container.ip + ':' + str(container.port))
 
     cluster_spec_map = {'worker': workers, 'ps': pses}
