@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='clusterspecgen.proto',
   package='clusterspecgen',
   syntax='proto3',
-  serialized_pb=_b('\n\x14\x63lusterspecgen.proto\x12\x0e\x63lusterspecgen\"^\n\tContainer\x12\x13\n\x0b\x63ontainerId\x18\x01 \x01(\t\x12\n\n\x02ip\x18\x02 \x01(\t\x12\x0c\n\x04port\x18\x03 \x01(\t\x12\x0f\n\x07jobName\x18\x04 \x01(\t\x12\x11\n\ttaskIndex\x18\x05 \x01(\t\"H\n\x18RegisterContainerRequest\x12,\n\tcontainer\x18\x01 \x01(\x0b\x32\x19.clusterspecgen.Container\"\x18\n\x16RegisterContainerReply\"\x17\n\x15GetClusterSpecRequest\"E\n\x13GetClusterSpecReply\x12.\n\x0b\x63lusterSpec\x18\x01 \x03(\x0b\x32\x19.clusterspecgen.Container2\xd5\x01\n\x0e\x43lusterSpecGen\x12\x65\n\x11RegisterContainer\x12(.clusterspecgen.RegisterContainerRequest\x1a&.clusterspecgen.RegisterContainerReply\x12\\\n\x0eGetClusterSpec\x12%.clusterspecgen.GetClusterSpecRequest\x1a#.clusterspecgen.GetClusterSpecReplyB@\n!io.hops.tensorflow.clusterspecgenB\x13\x43lusterSpecGenProtoP\x01\xa2\x02\x03\x43SGb\x06proto3')
+  serialized_pb=_b('\n\x14\x63lusterspecgen.proto\x12\x0e\x63lusterspecgen\"u\n\tContainer\x12\x15\n\rapplicationId\x18\x01 \x01(\t\x12\x13\n\x0b\x63ontainerId\x18\x02 \x01(\t\x12\n\n\x02ip\x18\x03 \x01(\t\x12\x0c\n\x04port\x18\x04 \x01(\x05\x12\x0f\n\x07jobName\x18\x05 \x01(\t\x12\x11\n\ttaskIndex\x18\x06 \x01(\x05\"H\n\x18RegisterContainerRequest\x12,\n\tcontainer\x18\x01 \x01(\x0b\x32\x19.clusterspecgen.Container\"\x18\n\x16RegisterContainerReply\"\x17\n\x15GetClusterSpecRequest\"E\n\x13GetClusterSpecReply\x12.\n\x0b\x63lusterSpec\x18\x01 \x03(\x0b\x32\x19.clusterspecgen.Container2\xd5\x01\n\x0e\x43lusterSpecGen\x12\x65\n\x11RegisterContainer\x12(.clusterspecgen.RegisterContainerRequest\x1a&.clusterspecgen.RegisterContainerReply\x12\\\n\x0eGetClusterSpec\x12%.clusterspecgen.GetClusterSpecRequest\x1a#.clusterspecgen.GetClusterSpecReplyB@\n!io.hops.tensorflow.clusterspecgenB\x13\x43lusterSpecGenProtoP\x01\xa2\x02\x03\x43SGb\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -34,37 +34,44 @@ _CONTAINER = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='containerId', full_name='clusterspecgen.Container.containerId', index=0,
+      name='applicationId', full_name='clusterspecgen.Container.applicationId', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='ip', full_name='clusterspecgen.Container.ip', index=1,
+      name='containerId', full_name='clusterspecgen.Container.containerId', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='port', full_name='clusterspecgen.Container.port', index=2,
+      name='ip', full_name='clusterspecgen.Container.ip', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='jobName', full_name='clusterspecgen.Container.jobName', index=3,
-      number=4, type=9, cpp_type=9, label=1,
+      name='port', full_name='clusterspecgen.Container.port', index=3,
+      number=4, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='jobName', full_name='clusterspecgen.Container.jobName', index=4,
+      number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='taskIndex', full_name='clusterspecgen.Container.taskIndex', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='taskIndex', full_name='clusterspecgen.Container.taskIndex', index=5,
+      number=6, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -81,7 +88,7 @@ _CONTAINER = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=40,
-  serialized_end=134,
+  serialized_end=157,
 )
 
 
@@ -111,8 +118,8 @@ _REGISTERCONTAINERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=136,
-  serialized_end=208,
+  serialized_start=159,
+  serialized_end=231,
 )
 
 
@@ -135,8 +142,8 @@ _REGISTERCONTAINERREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=210,
-  serialized_end=234,
+  serialized_start=233,
+  serialized_end=257,
 )
 
 
@@ -159,8 +166,8 @@ _GETCLUSTERSPECREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=236,
-  serialized_end=259,
+  serialized_start=259,
+  serialized_end=282,
 )
 
 
@@ -190,8 +197,8 @@ _GETCLUSTERSPECREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=261,
-  serialized_end=330,
+  serialized_start=284,
+  serialized_end=353,
 )
 
 _REGISTERCONTAINERREQUEST.fields_by_name['container'].message_type = _CONTAINER

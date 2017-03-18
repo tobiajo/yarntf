@@ -7,7 +7,9 @@ import tensorflow
 import time
 
 
-def createClusterSpec(job_name, task_index, container_id=None, am_address=None):
+def createClusterSpec(job_name, task_index, application_id=None, container_id=None, am_address=None):
+    if application_id is None:
+        application_id = os.environ['APPLICATION_ID']
     if container_id is None:
         container_id = os.environ['CONTAINER_ID']
     if am_address is None:
@@ -20,7 +22,7 @@ def createClusterSpec(job_name, task_index, container_id=None, am_address=None):
     s.bind(('', 0))
     port = s.getsockname()[1]
 
-    client.register_container(container_id, host, str(port), job_name, str(task_index))
+    client.register_container(application_id, container_id, host, port, job_name, task_index)
 
     while True:
         time.sleep(0.2)
@@ -39,15 +41,14 @@ def createClusterSpec(job_name, task_index, container_id=None, am_address=None):
     last_worker_task_id = -1
     last_ps_task_id = -1
     for container in cluster_spec_list:
-        print(container.taskIndex)
         if container.jobName == 'worker':
-            assert int(container.taskIndex) == last_worker_task_id + 1
-            last_worker_task_id = int(container.taskIndex)
-            workers.append(container.ip + ':' + container.port)
+            assert container.taskIndex == last_worker_task_id + 1
+            last_worker_task_id = container.taskIndex
+            workers.append(container.ip + ':' + str(container.port))
         elif container.jobName == 'ps':
-            assert int(container.taskIndex) == last_ps_task_id + 1
-            last_ps_task_id = int(container.taskIndex)
-            pses.append(container.ip + ':' + container.port)
+            assert container.taskIndex == last_ps_task_id + 1
+            last_ps_task_id = container.taskIndex
+            pses.append(container.ip + ':' + str(container.port))
 
     cluster_spec_map = {'worker': workers, 'ps': pses}
     print(container_id + ': createTrainServer: clusterSpec: ', end='')

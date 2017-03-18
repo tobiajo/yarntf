@@ -10,8 +10,9 @@ class ClusterSpecGenClient:
         self.channel = grpc.insecure_channel(target)
         self.stub = csg_grpc.ClusterSpecGenStub(self.channel)
 
-    def register_container(self, container_id, ip, port, job_name, task_index):
+    def register_container(self, application_id, container_id, ip, port, job_name, task_index):
         container = csg.Container()
+        container.applicationId = application_id
         container.containerId = container_id
         container.ip = ip
         container.port = port
