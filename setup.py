@@ -9,10 +9,10 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='yarntf',
-    version='0.0.1.dev12',
+    version='0.0.1.dev13',
     description='TensorFlow on YARN',
     long_description=long_description,
-    url='https://github.com/tobiajo/tfyarn',
+    url='https://github.com/tobiajo/yarntf',
     author='Tobias Johansson',
     author_email='tobias@johansson.xyz',
     license='Apache License 2.0',
