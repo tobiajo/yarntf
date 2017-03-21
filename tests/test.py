@@ -9,7 +9,7 @@ def factory_test():
     for i in range(0, 3):
         time.sleep(0.25)
         thread = threading.Thread(target=yarntf.createClusterSpec,
-                                  args=('worker', i, 'A1', 'localhost:50053'))
+                                  args=('localhost:50051', '(appId)', 'worker', i))
         thread.start()
         threads.append(thread)
 

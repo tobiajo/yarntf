@@ -7,11 +7,15 @@ import tensorflow
 import time
 
 
-def createClusterSpec(job_name, task_index, application_id=None, am_address=None):
-    if application_id is None:
-        application_id = os.environ['APPLICATION_ID']
+def createClusterSpec(am_address=None, application_id=None, job_name=None, task_index=None):
     if am_address is None:
         am_address = os.environ['AM_ADDRESS']
+    if application_id is None:
+        application_id = os.environ['APPLICATION_ID']
+    if job_name is None:
+        job_name = os.environ['JOB_NAME']
+    if task_index is None:
+        task_index = os.environ['TASK_INDEX']
 
     client = ClusterSpecGeneratorClient(am_address)
 
