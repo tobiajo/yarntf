@@ -1,8 +1,6 @@
-from __future__ import print_function
-
 import grpc
-import tfyarn.clusterspecgenerator_pb2 as csg
-import tfyarn.clusterspecgenerator_pb2_grpc as csg_grpc
+import yarntf.clusterspecgenerator_pb2 as csg
+import yarntf.clusterspecgenerator_pb2_grpc as csg_grpc
 
 
 class ClusterSpecGeneratorClient:

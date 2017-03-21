@@ -1,5 +1,5 @@
 from __future__ import print_function
-from tfyarn.clusterspecgenerator_client import ClusterSpecGeneratorClient
+from yarntf.clusterspecgenerator_client import ClusterSpecGeneratorClient
 
 import os
 import socket

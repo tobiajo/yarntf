@@ -8,8 +8,8 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='tfyarn',
-    version='0.0.1.dev9',
+    name='yarntf',
+    version='0.0.1',
     description='TensorFlow on YARN',
     long_description=long_description,
     url='https://github.com/tobiajo/tfyarn',
@@ -23,7 +23,7 @@ setup(
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python :: 2.7',
     ],
-    keywords='tf yarn tensorflow hadoop',
+    keywords='yarn tf hadoop tensorflow',
     packages=find_packages(exclude=['tests']),
     install_requires=['grpc', 'tensorflow'],
 )
