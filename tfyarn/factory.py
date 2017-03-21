@@ -1,5 +1,5 @@
 from __future__ import print_function
-from tfyarn.clusterspecgen_client import ClusterSpecGenClient
+from tfyarn.clusterspecgenerator_client import ClusterSpecGeneratorClient
 
 import os
 import socket
@@ -7,31 +7,29 @@ import tensorflow
 import time
 
 
-def createClusterSpec(job_name, task_index, application_id=None, container_id=None, am_address=None):
+def createClusterSpec(job_name, task_index, application_id=None, am_address=None):
     if application_id is None:
         application_id = os.environ['APPLICATION_ID']
-    if container_id is None:
-        container_id = os.environ['CONTAINER_ID']
     if am_address is None:
         am_address = os.environ['AM_ADDRESS']
 
-    client = ClusterSpecGenClient(am_address)
+    client = ClusterSpecGeneratorClient(am_address)
 
     host = socket.gethostname()
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind(('', 0))
     port = s.getsockname()[1]
 
-    client.register_container(application_id, container_id, host, port, job_name, task_index)
+    client.register_container(application_id, host, port, job_name, task_index)
 
     while True:
         time.sleep(0.2)
         cluster_spec_list = client.get_cluster_spec()
         if cluster_spec_list is None:
-            print(container_id + ': createTrainServer: clusterSpec: None')
+            print(job_name + str(task_index) + ': createTrainServer: clusterSpec: None')
             pass
         elif len(cluster_spec_list) == 0:
-            print(container_id + ': createTrainServer: clusterSpec: (empty)')
+            print(job_name + str(task_index) + ': createTrainServer: clusterSpec: (empty)')
             pass
         else:
             break
@@ -51,7 +49,7 @@ def createClusterSpec(job_name, task_index, application_id=None, container_id=No
             pses.append(container.ip + ':' + str(container.port))
 
     cluster_spec_map = {'worker': workers, 'ps': pses}
-    print(container_id + ': createTrainServer: clusterSpec: ', end='')
+    print(job_name + str(task_index) + ': createTrainServer: clusterSpec: ', end='')
     print(cluster_spec_map)
 
     s.close()

@@ -3,10 +3,10 @@ import grpc
 from grpc.framework.common import cardinality
 from grpc.framework.interfaces.face import utilities as face_utilities
 
-import clusterspecgen_pb2 as clusterspecgen__pb2
+import clusterspecgenerator_pb2 as clusterspecgenerator__pb2
 
 
-class ClusterSpecGenStub(object):
+class ClusterSpecGeneratorStub(object):
 
   def __init__(self, channel):
     """Constructor.
@@ -15,18 +15,18 @@ class ClusterSpecGenStub(object):
       channel: A grpc.Channel.
     """
     self.RegisterContainer = channel.unary_unary(
-        '/clusterspecgen.ClusterSpecGen/RegisterContainer',
-        request_serializer=clusterspecgen__pb2.RegisterContainerRequest.SerializeToString,
-        response_deserializer=clusterspecgen__pb2.RegisterContainerReply.FromString,
+        '/clusterspecgenerator.ClusterSpecGenerator/RegisterContainer',
+        request_serializer=clusterspecgenerator__pb2.RegisterContainerRequest.SerializeToString,
+        response_deserializer=clusterspecgenerator__pb2.RegisterContainerReply.FromString,
         )
     self.GetClusterSpec = channel.unary_unary(
-        '/clusterspecgen.ClusterSpecGen/GetClusterSpec',
-        request_serializer=clusterspecgen__pb2.GetClusterSpecRequest.SerializeToString,
-        response_deserializer=clusterspecgen__pb2.GetClusterSpecReply.FromString,
+        '/clusterspecgenerator.ClusterSpecGenerator/GetClusterSpec',
+        request_serializer=clusterspecgenerator__pb2.GetClusterSpecRequest.SerializeToString,
+        response_deserializer=clusterspecgenerator__pb2.GetClusterSpecReply.FromString,
         )
 
 
-class ClusterSpecGenServicer(object):
+class ClusterSpecGeneratorServicer(object):
 
   def RegisterContainer(self, request, context):
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -39,19 +39,19 @@ class ClusterSpecGenServicer(object):
     raise NotImplementedError('Method not implemented!')
 
 
-def add_ClusterSpecGenServicer_to_server(servicer, server):
+def add_ClusterSpecGeneratorServicer_to_server(servicer, server):
   rpc_method_handlers = {
       'RegisterContainer': grpc.unary_unary_rpc_method_handler(
           servicer.RegisterContainer,
-          request_deserializer=clusterspecgen__pb2.RegisterContainerRequest.FromString,
-          response_serializer=clusterspecgen__pb2.RegisterContainerReply.SerializeToString,
+          request_deserializer=clusterspecgenerator__pb2.RegisterContainerRequest.FromString,
+          response_serializer=clusterspecgenerator__pb2.RegisterContainerReply.SerializeToString,
       ),
       'GetClusterSpec': grpc.unary_unary_rpc_method_handler(
           servicer.GetClusterSpec,
-          request_deserializer=clusterspecgen__pb2.GetClusterSpecRequest.FromString,
-          response_serializer=clusterspecgen__pb2.GetClusterSpecReply.SerializeToString,
+          request_deserializer=clusterspecgenerator__pb2.GetClusterSpecRequest.FromString,
+          response_serializer=clusterspecgenerator__pb2.GetClusterSpecReply.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
-      'clusterspecgen.ClusterSpecGen', rpc_method_handlers)
+      'clusterspecgenerator.ClusterSpecGenerator', rpc_method_handlers)
   server.add_generic_rpc_handlers((generic_handler,))
