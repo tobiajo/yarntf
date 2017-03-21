@@ -15,7 +15,7 @@ def createClusterSpec(am_address=None, application_id=None, job_name=None, task_
     if job_name is None:
         job_name = os.environ['JOB_NAME']
     if task_index is None:
-        task_index = os.environ['TASK_INDEX']
+        task_index = int(os.environ['TASK_INDEX'])
 
     client = ClusterSpecGeneratorClient(am_address)
 
