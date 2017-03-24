@@ -3,6 +3,7 @@ from yarntf.clusterspecgenerator_client import ClusterSpecGeneratorClient
 
 import os
 import socket
+import sys
 import tensorflow
 import time
 
@@ -24,19 +25,25 @@ def createClusterSpec(am_address=None, application_id=None, job_name=None, task_
     s.bind(('', 0))
     port = s.getsockname()[1]
 
-    client.register_container(application_id, host, port, job_name, task_index)
+    registered = client.register_container(application_id, host, port, job_name, task_index)
+    print(job_name + str(task_index) + ': createClusterSpec(): registered: ' + str(registered))
+    assert registered
 
-    while True:
-        time.sleep(0.2)
+    for i in range(0, 30):
+        time.sleep(1)
         cluster_spec_list = client.get_cluster_spec()
         if cluster_spec_list is None:
-            print(job_name + str(task_index) + ': createTrainServer: clusterSpec: None')
+            print(job_name + str(task_index) + ': createClusterSpec(): clusterSpec: None', file=sys.stderr)
+            sys.exit(1)
             pass
         elif len(cluster_spec_list) == 0:
-            print(job_name + str(task_index) + ': createTrainServer: clusterSpec: (empty)')
+            print(job_name + str(task_index) + ': createClusterSpec(): clusterSpec: (empty)')
             pass
         else:
             break
+        if i == 29:
+            print(job_name + str(task_index) + ': createClusterSpec(): clusterSpec: TIMEOUT', file=sys.stderr)
+            sys.exit(1)
 
     workers = []
     pses = []
@@ -53,7 +60,7 @@ def createClusterSpec(am_address=None, application_id=None, job_name=None, task_
             pses.append(container.ip + ':' + str(container.port))
 
     cluster_spec_map = {'worker': workers, 'ps': pses}
-    print(job_name + str(task_index) + ': createTrainServer: clusterSpec: ', end='')
+    print(job_name + str(task_index) + ': createClusterSpec(): clusterSpec: ', end='')
     print(cluster_spec_map)
 
     s.close()

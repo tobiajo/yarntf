@@ -7,11 +7,11 @@ def factory_test():
     threads = []
 
     for i in range(0, 3):
-        time.sleep(0.25)
         thread = threading.Thread(target=yarntf.createClusterSpec,
                                   args=('localhost:50051', '(appId)', 'worker', i))
         thread.start()
         threads.append(thread)
+        time.sleep(2)
 
     for thread in threads:
         thread.join()
