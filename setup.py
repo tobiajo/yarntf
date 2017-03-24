@@ -9,7 +9,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='yarntf',
-    version='0.0.1.dev15',
+    version='0.0.1.dev16',
     description='TensorFlow on YARN',
     long_description=long_description,
     url='https://github.com/tobiajo/yarntf',
@@ -25,5 +25,5 @@ setup(
     ],
     keywords='yarn tf hadoop tensorflow',
     packages=find_packages(exclude=['tests']),
-    install_requires=['grpc', 'tensorflow'],
+    install_requires=['grpcio', 'tensorflow'],
 )
