@@ -1,1 +1,1 @@
-from yarntf.factory import createClusterSpec, createTrainServer
+from yarntf.factory import createClusterSpec, createClusterServer

@@ -58,10 +58,11 @@ def createClusterSpec(am_address, application_id, job_name, task_index):
     return tensorflow.train.ClusterSpec(cluster_spec_map)
 
 
-def createTrainServer():
+def createClusterServer():
     am_address = os.environ['AM_ADDRESS']
     application_id = os.environ['APPLICATION_ID']
     job_name = os.environ['JOB_NAME']
     task_index = int(os.environ['TASK_INDEX'])
     cluster = createClusterSpec(am_address, application_id, job_name, task_index)
-    return tensorflow.train.Server(cluster, job_name=job_name, task_index=task_index)
+    server = tensorflow.train.Server(cluster, job_name=job_name, task_index=task_index)
+    return cluster, server
