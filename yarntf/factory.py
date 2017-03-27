@@ -8,16 +8,7 @@ import tensorflow
 import time
 
 
-def createClusterSpec(am_address=None, application_id=None, job_name=None, task_index=None):
-    if am_address is None:
-        am_address = os.environ['AM_ADDRESS']
-    if application_id is None:
-        application_id = os.environ['APPLICATION_ID']
-    if job_name is None:
-        job_name = os.environ['JOB_NAME']
-    if task_index is None:
-        task_index = int(os.environ['TASK_INDEX'])
-
+def createClusterSpec(am_address, application_id, job_name, task_index):
     client = ClusterSpecGeneratorClient(am_address)
 
     host = socket.gethostname()
@@ -65,3 +56,12 @@ def createClusterSpec(am_address=None, application_id=None, job_name=None, task_
 
     s.close()
     return tensorflow.train.ClusterSpec(cluster_spec_map)
+
+
+def createTrainServer():
+    am_address = os.environ['AM_ADDRESS']
+    application_id = os.environ['APPLICATION_ID']
+    job_name = os.environ['JOB_NAME']
+    task_index = int(os.environ['TASK_INDEX'])
+    cluster = createClusterSpec(am_address, application_id, job_name, task_index)
+    return tensorflow.train.Server(cluster, job_name=job_name, task_index=task_index)
