@@ -8,6 +8,8 @@ This is basicaly a clone of the TensorFlowOnSpark example.
 
 ## Try the example
 
+At first, we assume that Python is installed on the cluster. If needed dependencies are not avaliable, they can be added from a local source with the `--files` flag to PYTHONPATH, as a comma-separated list of .zip, .egg, or .py files. For more arguments see `yarntf-submit --help`.
+
 1. To get the data set for this example, TFRecords or CSV, please follow [this guide](https://github.com/yahoo/TensorFlowOnSpark/wiki/GetStarted_YARN).
 2. Clone and `mvn install`: https://github.com/tobiajo/hops-tensorflow/tree/develop
 3. Locate _yarntf-submit_ in _hops-tensorflow/bin_.
@@ -41,5 +43,3 @@ yarntf-submit \
         --model mnist_model \
         --output mnist_predictions
 ```
-
-Notes: the amount of memory is given in MB. For more arguments see `yarntf-submit --help`.
