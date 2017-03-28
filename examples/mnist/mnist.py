@@ -5,11 +5,13 @@ from __future__ import division
 from __future__ import print_function
 
 import argparse
-from datetime import datetime
 import math
 import os
-import tensorflow as tf
 import time
+from datetime import datetime
+
+import tensorflow as tf
+
 import yarntf
 
 IMAGE_PIXELS = 28
