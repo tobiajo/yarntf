@@ -14,11 +14,11 @@ This is basicaly a clone of the TensorFlowOnSpark example.
 3. Run distributed training:
 ```
 yarntf-submit \
-        --queue                         ${queue} \
-        --workers                       ${workers} \
-        --pses                          ${pses} \
-        --memory                        ${memory} \
-        --vcores                        ${vcores} \
+        --queue                         default \
+        --workers                       3 \
+        --pses                          1 \
+        --memory                        1024 \
+        --vcores                        1 \
         --main mnist.py \
         --args \
         --images mnist/tfr/train \
@@ -29,11 +29,11 @@ yarntf-submit \
 5. Run distributed inference:
 ```
 yarntf-submit \
-        --queue                         ${queue} \
-        --workers                       ${workers} \
-        --pses                          ${pses} \
-        --memory                        ${memory} \
-        --vcores                        ${vcores} \
+        --queue                         default \
+        --workers                       3 \
+        --pses                          1 \
+        --memory                        1024 \
+        --vcores                        1 \
         --main mnist.py \
         --args \
         --images mnist/tfr/test \
