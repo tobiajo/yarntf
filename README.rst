@@ -7,10 +7,19 @@ machine learning applications on Hadoop YARN clusters.
 User Guide
 ----------
 
-1. In your code: replace ``tf.train.ClusterSpec()`` with ``yarntf.createClusterSpec()``
+In general it is as simple as follows.
+
+1. In your code: replace ``tf.train.ClusterSpec()`` and ``tf.train.Server()`` with ``yarntf.createClusterServer()``
 2. On your cluster: submit the application with `hops-tensorflow <https://github.com/tobiajo/hops-tensorflow/tree/develop>`_
 
-WORK IN PROGRESS
+Your ClusterSpec is generated automaticaly and the parameter servers stopped when all workers are completed. For more details see the examples.
+
+Work In Progress
 ----------------
 
-Not ready for usage, development is still in an early stage.
+Development is still in an early stage. Contributions are welcome!
+
+License
+-------
+
+``yarntf`` and ``hops-tensorflow`` is released under an Apache 2.0 license.
