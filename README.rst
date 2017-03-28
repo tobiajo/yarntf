@@ -12,7 +12,9 @@ In general it is as simple as follows.
 1. In your code: replace ``tf.train.ClusterSpec()`` and ``tf.train.Server()`` with ``yarntf.createClusterServer()``
 2. On your cluster: submit the application with `hops-tensorflow <https://github.com/tobiajo/hops-tensorflow/tree/develop>`_
 
-Your ClusterSpec is generated automaticaly and the parameter servers stopped when all workers are completed. For more details see the examples.
+Your ClusterSpec is generated automaticaly and the parameter servers stopped when all workers are completed. Specify the number of worker, ps and resources on submit.
+
+For more details see the examples.
 
 Work In Progress
 ----------------
