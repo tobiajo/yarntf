@@ -22,8 +22,9 @@ class ClusterSpecGeneratorClient:
             return False
         return True
 
-    def get_cluster_spec(self):
+    def get_cluster_spec(self, application_id):
         request = csg.GetClusterSpecRequest()
+        request.applicationId = application_id
         try:
             reply = self.stub.GetClusterSpec(request)
         except grpc.RpcError:

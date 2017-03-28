@@ -1,11 +1,13 @@
 from __future__ import print_function
-from yarntf.clusterspecgenerator_client import ClusterSpecGeneratorClient
 
 import os
 import socket
 import sys
-import tensorflow
 import time
+
+import tensorflow
+
+from yarntf.clusterspecgenerator_client import ClusterSpecGeneratorClient
 
 
 def createClusterSpec(am_address, application_id, job_name, task_index):
@@ -22,7 +24,7 @@ def createClusterSpec(am_address, application_id, job_name, task_index):
 
     for i in range(0, 30):
         time.sleep(1)
-        cluster_spec_list = client.get_cluster_spec()
+        cluster_spec_list = client.get_cluster_spec(application_id)
         if cluster_spec_list is None:
             print(job_name + str(task_index) + ': createClusterSpec(): clusterSpec: None', file=sys.stderr)
             sys.exit(1)
@@ -64,5 +66,4 @@ def createClusterServer():
     job_name = os.environ['JOB_NAME']
     task_index = int(os.environ['TASK_INDEX'])
     cluster = createClusterSpec(am_address, application_id, job_name, task_index)
-    server = tensorflow.train.Server(cluster, job_name=job_name, task_index=task_index)
-    return cluster, server
+    return cluster, tensorflow.train.Server(cluster, job_name=job_name, task_index=task_index)

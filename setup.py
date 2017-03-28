@@ -9,7 +9,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='yarntf',
-    version='0.0.1.dev21-SNAPSHOT',
+    version='0.0.1.dev21',
     description='TensorFlow on YARN',
     long_description=long_description,
     url='https://github.com/tobiajo/yarntf',

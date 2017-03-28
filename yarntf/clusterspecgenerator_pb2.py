@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='clusterspecgenerator.proto',
   package='clusterspecgenerator',
   syntax='proto3',
-  serialized_pb=_b('\n\x1a\x63lusterspecgenerator.proto\x12\x14\x63lusterspecgenerator\"`\n\tContainer\x12\x15\n\rapplicationId\x18\x01 \x01(\t\x12\n\n\x02ip\x18\x02 \x01(\t\x12\x0c\n\x04port\x18\x03 \x01(\x05\x12\x0f\n\x07jobName\x18\x04 \x01(\t\x12\x11\n\ttaskIndex\x18\x05 \x01(\x05\"N\n\x18RegisterContainerRequest\x12\x32\n\tcontainer\x18\x01 \x01(\x0b\x32\x1f.clusterspecgenerator.Container\"\x18\n\x16RegisterContainerReply\"\x17\n\x15GetClusterSpecRequest\"K\n\x13GetClusterSpecReply\x12\x34\n\x0b\x63lusterSpec\x18\x01 \x03(\x0b\x32\x1f.clusterspecgenerator.Container2\xf3\x01\n\x14\x43lusterSpecGenerator\x12q\n\x11RegisterContainer\x12..clusterspecgenerator.RegisterContainerRequest\x1a,.clusterspecgenerator.RegisterContainerReply\x12h\n\x0eGetClusterSpec\x12+.clusterspecgenerator.GetClusterSpecRequest\x1a).clusterspecgenerator.GetClusterSpecReplyBL\n\'io.hops.tensorflow.clusterspecgeneratorB\x19\x43lusterSpecGeneratorProtoP\x01\xa2\x02\x03\x43SGb\x06proto3')
+  serialized_pb=_b('\n\x1a\x63lusterspecgenerator.proto\x12\x14\x63lusterspecgenerator\"`\n\tContainer\x12\x15\n\rapplicationId\x18\x01 \x01(\t\x12\n\n\x02ip\x18\x02 \x01(\t\x12\x0c\n\x04port\x18\x03 \x01(\x05\x12\x0f\n\x07jobName\x18\x04 \x01(\t\x12\x11\n\ttaskIndex\x18\x05 \x01(\x05\"N\n\x18RegisterContainerRequest\x12\x32\n\tcontainer\x18\x01 \x01(\x0b\x32\x1f.clusterspecgenerator.Container\"\x18\n\x16RegisterContainerReply\".\n\x15GetClusterSpecRequest\x12\x15\n\rapplicationId\x18\x01 \x01(\t\"K\n\x13GetClusterSpecReply\x12\x34\n\x0b\x63lusterSpec\x18\x01 \x03(\x0b\x32\x1f.clusterspecgenerator.Container2\xf3\x01\n\x14\x43lusterSpecGenerator\x12q\n\x11RegisterContainer\x12..clusterspecgenerator.RegisterContainerRequest\x1a,.clusterspecgenerator.RegisterContainerReply\x12h\n\x0eGetClusterSpec\x12+.clusterspecgenerator.GetClusterSpecRequest\x1a).clusterspecgenerator.GetClusterSpecReplyBL\n\'io.hops.tensorflow.clusterspecgeneratorB\x19\x43lusterSpecGeneratorProtoP\x01\xa2\x02\x03\x43SGb\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -147,6 +147,13 @@ _GETCLUSTERSPECREQUEST = _descriptor.Descriptor(
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='applicationId', full_name='clusterspecgenerator.GetClusterSpecRequest.applicationId', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -160,7 +167,7 @@ _GETCLUSTERSPECREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=256,
-  serialized_end=279,
+  serialized_end=302,
 )
 
 
@@ -190,8 +197,8 @@ _GETCLUSTERSPECREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=281,
-  serialized_end=356,
+  serialized_start=304,
+  serialized_end=379,
 )
 
 _REGISTERCONTAINERREQUEST.fields_by_name['container'].message_type = _CONTAINER
