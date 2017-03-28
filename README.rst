@@ -16,10 +16,15 @@ Your ClusterSpec is generated automaticaly and the parameter servers stopped whe
 
 For more details see the examples.
 
+Performance
+-----------
+
+Approximately 50% faster than `TensorFlowOnSpark <https://github.com/yahoo/TensorFlowOnSpark>`_ for training with TFRecords.
+
 Work In Progress
 ----------------
 
-Development is still in an early stage. Contributions are welcome!
+Development is still in an early stage. Contributions are very welcome!
 
 License
 -------
