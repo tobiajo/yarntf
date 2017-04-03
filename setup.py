@@ -9,8 +9,8 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='yarntf',
-    version='0.0.1.dev22-SNAPSHOT',
-    description='TensorFlow on YARN',
+    version='0.0.1.dev22',
+    description='Easy distributed TensorFlow on Hadoop',
     long_description=long_description,
     url='https://github.com/tobiajo/yarntf',
     author='Tobias Johansson',
