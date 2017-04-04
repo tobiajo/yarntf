@@ -28,10 +28,8 @@ def createClusterSpec(am_address, application_id, job_name, task_index):
         if cluster_spec_list is None:
             print(job_name + str(task_index) + ': createClusterSpec(): clusterSpec: None', file=sys.stderr)
             sys.exit(1)
-            pass
         elif len(cluster_spec_list) == 0:
             print(job_name + str(task_index) + ': createClusterSpec(): clusterSpec: (empty)')
-            pass
         else:
             break
         if i == 29:
