@@ -6,7 +6,7 @@ import subprocess
 import sys
 import time
 
-import tensorflow
+import tensorflow as tf
 
 from yarntf.clusterspecgenerator_client import ClusterSpecGeneratorClient
 
@@ -20,12 +20,12 @@ def createClusterSpec(am_address, application_id, job_name, task_index):
     port = s.getsockname()[1]
 
     tb_port = -1
-    if "TENSORBOARD" in os.environ:
+    if 'TENSORBOARD' in os.environ:
         tb_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         tb_s.bind(('', 0))
         tb_port = tb_s.getsockname()[1]
         tb_s.close()
-        subprocess.Popen(["tensorboard --logdir=" + os.environ["TB_DIR"] + " --port=" + str(tb_port) + " --debug"])
+        subprocess.Popen(['tensorboard', '--logdir=' + os.environ['TB_DIR'], '--port=' + str(tb_port), '--debug'])
 
     registered = client.register_container(application_id, host, port, job_name, task_index, tb_port)
     print(job_name + str(task_index) + ': createClusterSpec(): registered: ' + str(registered))
@@ -64,7 +64,7 @@ def createClusterSpec(am_address, application_id, job_name, task_index):
     print(cluster_spec_map)
 
     s.close()
-    return tensorflow.train.ClusterSpec(cluster_spec_map)
+    return tf.train.ClusterSpec(cluster_spec_map)
 
 
 def createClusterServer():
@@ -73,4 +73,4 @@ def createClusterServer():
     job_name = os.environ['JOB_NAME']
     task_index = int(os.environ['TASK_INDEX'])
     cluster = createClusterSpec(am_address, application_id, job_name, task_index)
-    return cluster, tensorflow.train.Server(cluster, job_name=job_name, task_index=task_index)
+    return cluster, tf.train.Server(cluster, job_name=job_name, task_index=task_index)
