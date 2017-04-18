@@ -64,7 +64,10 @@ def createClusterSpec(am_address, application_id, job_name, task_index):
     print(cluster_spec_map)
 
     s.close()
-    return tf.train.ClusterSpec(cluster_spec_map)
+    if len(cluster_spec_map['worker']) == 1 and len(cluster_spec_map['ps']) == 0:
+        return None
+    else:
+        return tf.train.ClusterSpec(cluster_spec_map)
 
 
 def createClusterServer():
@@ -73,4 +76,7 @@ def createClusterServer():
     job_name = os.environ['JOB_NAME']
     task_index = int(os.environ['TASK_INDEX'])
     cluster = createClusterSpec(am_address, application_id, job_name, task_index)
-    return cluster, tf.train.Server(cluster, job_name=job_name, task_index=task_index)
+    if cluster is None:
+        return None, tf.train.Server.create_local_server()
+    else:
+        return cluster, tf.train.Server(cluster, job_name=job_name, task_index=task_index)
