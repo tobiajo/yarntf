@@ -5,6 +5,7 @@ import socket
 import subprocess
 import sys
 import time
+
 import tensorflow
 
 from yarntf.clusterspecgenerator_client import ClusterSpecGeneratorClient
@@ -19,14 +20,14 @@ def createClusterSpec(am_address, application_id, job_name, task_index):
     port = s.getsockname()[1]
 
     tb_port = -1
-    if "TB_DIR" in os.environ:
+    if "TENSORBOARD" in os.environ:
         tb_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         tb_s.bind(('', 0))
         tb_port = tb_s.getsockname()[1]
         tb_s.close()
         subprocess.Popen(["tensorboard --logdir=" + os.environ["TB_DIR"] + " --port=" + str(tb_port) + " --debug"])
 
-    registered = client.register_container(application_id, host, port, job_name, task_index)
+    registered = client.register_container(application_id, host, port, job_name, task_index, tb_port)
     print(job_name + str(task_index) + ': createClusterSpec(): registered: ' + str(registered))
     assert registered
 

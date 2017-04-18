@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='clusterspecgenerator.proto',
   package='clusterspecgenerator',
   syntax='proto3',
-  serialized_pb=_b('\n\x1a\x63lusterspecgenerator.proto\x12\x14\x63lusterspecgenerator\"`\n\tContainer\x12\x15\n\rapplicationId\x18\x01 \x01(\t\x12\n\n\x02ip\x18\x02 \x01(\t\x12\x0c\n\x04port\x18\x03 \x01(\x05\x12\x0f\n\x07jobName\x18\x04 \x01(\t\x12\x11\n\ttaskIndex\x18\x05 \x01(\x05\"N\n\x18RegisterContainerRequest\x12\x32\n\tcontainer\x18\x01 \x01(\x0b\x32\x1f.clusterspecgenerator.Container\"\x18\n\x16RegisterContainerReply\".\n\x15GetClusterSpecRequest\x12\x15\n\rapplicationId\x18\x01 \x01(\t\"K\n\x13GetClusterSpecReply\x12\x34\n\x0b\x63lusterSpec\x18\x01 \x03(\x0b\x32\x1f.clusterspecgenerator.Container2\xf3\x01\n\x14\x43lusterSpecGenerator\x12q\n\x11RegisterContainer\x12..clusterspecgenerator.RegisterContainerRequest\x1a,.clusterspecgenerator.RegisterContainerReply\x12h\n\x0eGetClusterSpec\x12+.clusterspecgenerator.GetClusterSpecRequest\x1a).clusterspecgenerator.GetClusterSpecReplyBL\n\'io.hops.tensorflow.clusterspecgeneratorB\x19\x43lusterSpecGeneratorProtoP\x01\xa2\x02\x03\x43SGb\x06proto3')
+  serialized_pb=_b('\n\x1a\x63lusterspecgenerator.proto\x12\x14\x63lusterspecgenerator\"p\n\tContainer\x12\x15\n\rapplicationId\x18\x01 \x01(\t\x12\n\n\x02ip\x18\x02 \x01(\t\x12\x0c\n\x04port\x18\x03 \x01(\x05\x12\x0f\n\x07jobName\x18\x04 \x01(\t\x12\x11\n\ttaskIndex\x18\x05 \x01(\x05\x12\x0e\n\x06tbPort\x18\x06 \x01(\x05\"N\n\x18RegisterContainerRequest\x12\x32\n\tcontainer\x18\x01 \x01(\x0b\x32\x1f.clusterspecgenerator.Container\"\x18\n\x16RegisterContainerReply\".\n\x15GetClusterSpecRequest\x12\x15\n\rapplicationId\x18\x01 \x01(\t\"K\n\x13GetClusterSpecReply\x12\x34\n\x0b\x63lusterSpec\x18\x01 \x03(\x0b\x32\x1f.clusterspecgenerator.Container2\xf3\x01\n\x14\x43lusterSpecGenerator\x12q\n\x11RegisterContainer\x12..clusterspecgenerator.RegisterContainerRequest\x1a,.clusterspecgenerator.RegisterContainerReply\x12h\n\x0eGetClusterSpec\x12+.clusterspecgenerator.GetClusterSpecRequest\x1a).clusterspecgenerator.GetClusterSpecReplyBL\n\'io.hops.tensorflow.clusterspecgeneratorB\x19\x43lusterSpecGeneratorProtoP\x01\xa2\x02\x03\x43SGb\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -68,6 +68,13 @@ _CONTAINER = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='tbPort', full_name='clusterspecgenerator.Container.tbPort', index=5,
+      number=6, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -81,7 +88,7 @@ _CONTAINER = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=52,
-  serialized_end=148,
+  serialized_end=164,
 )
 
 
@@ -111,8 +118,8 @@ _REGISTERCONTAINERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=150,
-  serialized_end=228,
+  serialized_start=166,
+  serialized_end=244,
 )
 
 
@@ -135,8 +142,8 @@ _REGISTERCONTAINERREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=230,
-  serialized_end=254,
+  serialized_start=246,
+  serialized_end=270,
 )
 
 
@@ -166,8 +173,8 @@ _GETCLUSTERSPECREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=256,
-  serialized_end=302,
+  serialized_start=272,
+  serialized_end=318,
 )
 
 
@@ -197,8 +204,8 @@ _GETCLUSTERSPECREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=304,
-  serialized_end=379,
+  serialized_start=320,
+  serialized_end=395,
 )
 
 _REGISTERCONTAINERREQUEST.fields_by_name['container'].message_type = _CONTAINER

@@ -23,7 +23,7 @@ def print_log(worker_num, arg):
 
 
 def hdfs_path(relative_path):
-    return os.environ["HOME_DIRECTORY"] + "/" + relative_path
+    return os.environ["HOME_DIR"] + "/" + relative_path
 
 
 def main(args):
@@ -172,7 +172,7 @@ def main(args):
         # Create a "supervisor", which oversees the training process and stores model state into HDFS
         logdir = hdfs_path(args.model)
         print("tensorflow model path: {0}".format(logdir))
-        summary_writer = tf.summary.FileWriter("tensorboard_%d" % (worker_num), graph=tf.get_default_graph())
+        summary_writer = tf.summary.FileWriter(os.environ["TB_DIR"], graph=tf.get_default_graph())
 
         if args.mode == "train":
             sv = tf.train.Supervisor(is_chief=(task_index == 0),
