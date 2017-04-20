@@ -15,7 +15,7 @@ def createClusterSpec(am_address, application_id, job_name, task_index):
     client = ClusterSpecGeneratorClient(am_address)
 
     tb_port = -1
-    if 'TENSORBOARD' in os.environ:
+    if 'TENSORBOARD' in os.environ and os.environ['TENSORBOARD'] == 'true':
         tb_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         tb_s.bind(('', 0))
         tb_port = tb_s.getsockname()[1]
