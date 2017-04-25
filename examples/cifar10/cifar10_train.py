@@ -40,6 +40,7 @@ from datetime import datetime
 import time
 
 import tensorflow as tf
+import yarntf
 
 import cifar10
 
@@ -113,10 +114,11 @@ def train():
 
 
 def main(argv=None):  # pylint: disable=unused-argument
-  cifar10.maybe_download_and_extract()
+  # cifar10.maybe_download_and_extract()
   if tf.gfile.Exists(FLAGS.train_dir):
     tf.gfile.DeleteRecursively(FLAGS.train_dir)
   tf.gfile.MakeDirs(FLAGS.train_dir)
+  _, _ = yarntf.createClusterServer()
   train()
 
 

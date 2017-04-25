@@ -47,6 +47,7 @@ import time
 import numpy as np
 from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
+import yarntf
 import cifar10
 
 FLAGS = tf.app.flags.FLAGS
@@ -230,7 +231,7 @@ def train():
     # Start the queue runners.
     tf.train.start_queue_runners(sess=sess)
 
-    summary_writer = tf.summary.FileWriter(FLAGS.train_dir, sess.graph)
+    summary_writer = tf.summary.FileWriter(os.environ["TB_DIR"], sess.graph)
 
     for step in xrange(FLAGS.max_steps):
       start_time = time.time()
@@ -260,10 +261,11 @@ def train():
 
 
 def main(argv=None):  # pylint: disable=unused-argument
-  cifar10.maybe_download_and_extract()
+  # cifar10.maybe_download_and_extract()
   if tf.gfile.Exists(FLAGS.train_dir):
     tf.gfile.DeleteRecursively(FLAGS.train_dir)
   tf.gfile.MakeDirs(FLAGS.train_dir)
+  _, _ = yarntf.createClusterServer()
   train()
 
 
