@@ -17,8 +17,8 @@ import yarntf
 IMAGE_PIXELS = 28
 
 
-def print_log(worker_num, arg):
-    print("%d: " % worker_num, end=" ")
+def print_log(worker_id, arg):
+    print(worker_id, end=": ")
     print(arg)
 
 
@@ -31,14 +31,7 @@ def main(args):
     task_index = int(os.environ["TASK_INDEX"])
     num_workers = int(os.environ["WORKERS"])
     num_pses = int(os.environ["PSES"])
-    if job_name == "worker":
-        worker_num = task_index + num_pses
-    else:
-        worker_num = task_index
-
-    # Delay PS nodes a bit, since workers seem to reserve GPUs more quickly/reliably (w/o conflict)
-    if job_name == "ps":
-        time.sleep((worker_num + 1) * 5)
+    worker_id = job_name + str(task_index)
 
     # Parameters
     hidden_units = 128
@@ -48,18 +41,18 @@ def main(args):
     cluster, server = yarntf.createClusterServer()
 
     def read_csv_examples(image_dir, label_dir, batch_size=100, num_epochs=None, task_index=None, num_workers=None):
-        print_log(worker_num, "num_epochs: {0}".format(num_epochs))
+        print_log(worker_id, "num_epochs: {0}".format(num_epochs))
         # Setup queue of csv image filenames
         tf_record_pattern = os.path.join(image_dir, 'part-*')
         images = tf.gfile.Glob(tf_record_pattern)
-        print_log(worker_num, "images: {0}".format(images))
+        print_log(worker_id, "images: {0}".format(images))
         image_queue = tf.train.string_input_producer(images, shuffle=False, capacity=1000, num_epochs=num_epochs,
                                                      name="image_queue")
 
         # Setup queue of csv label filenames
         tf_record_pattern = os.path.join(label_dir, 'part-*')
         labels = tf.gfile.Glob(tf_record_pattern)
-        print_log(worker_num, "labels: {0}".format(labels))
+        print_log(worker_id, "labels: {0}".format(labels))
         label_queue = tf.train.string_input_producer(labels, shuffle=False, capacity=1000, num_epochs=num_epochs,
                                                      name="label_queue")
 
@@ -71,20 +64,20 @@ def main(args):
         # Normalize values to [0,1]
         norm = tf.constant(255, dtype=tf.float32, shape=(784,))
         image = tf.div(img, norm)
-        print_log(worker_num, "image: {0}".format(image))
+        print_log(worker_id, "image: {0}".format(image))
 
         # Setup reader for label queue
         label_reader = tf.TextLineReader(name="label_reader")
         _, label_csv = label_reader.read(label_queue)
         label_defaults = [[1.0] for col in range(10)]
         label = tf.pack(tf.decode_csv(label_csv, label_defaults))
-        print_log(worker_num, "label: {0}".format(label))
+        print_log(worker_id, "label: {0}".format(label))
 
         # Return a batch of examples
         return tf.train.batch([image, label], batch_size, num_threads=args.readers, name="batch_csv")
 
     def read_tfr_examples(path, batch_size=100, num_epochs=None, task_index=None, num_workers=None):
-        print_log(worker_num, "num_epochs: {0}".format(num_epochs))
+        print_log(worker_id, "num_epochs: {0}".format(num_epochs))
 
         # Setup queue of TFRecord filenames
         tf_record_pattern = os.path.join(path, 'part-*')
@@ -97,7 +90,7 @@ def main(args):
             files = files[task_index:num_files:num_workers]
             queue_name = "file_queue_{0}".format(task_index)
 
-        print_log(worker_num, "files: {0}".format(files))
+        print_log(worker_id, "files: {0}".format(files))
         file_queue = tf.train.string_input_producer(files, shuffle=False, capacity=1000, num_epochs=num_epochs,
                                                     name=queue_name)
 
@@ -108,9 +101,9 @@ def main(args):
         features = tf.parse_single_example(serialized, feature_def)
         norm = tf.constant(255, dtype=tf.float32, shape=(784,))
         image = tf.div(tf.to_float(features['image']), norm)
-        print_log(worker_num, "image: {0}".format(image))
+        print_log(worker_id, "image: {0}".format(image))
         label = tf.to_float(features['label'])
-        print_log(worker_num, "label: {0}".format(label))
+        print_log(worker_id, "label: {0}".format(label))
 
         # Return a batch of examples
         return tf.train.batch([image, label], batch_size, num_threads=args.readers, name="batch")
@@ -192,7 +185,7 @@ def main(args):
                                      stop_grace_secs=300,
                                      save_model_secs=0)
             output_dir = hdfs_path(args.output)
-            output_file = tf.gfile.Open("{0}/part-{1:05d}".format(output_dir, worker_num), mode='w')
+            output_file = tf.gfile.Open("{0}/part-{1:05d}".format(output_dir, task_index), mode='w')
 
         # The supervisor takes care of session initialization, restoring from
         # a checkpoint, and closing when done or an error occurs.
