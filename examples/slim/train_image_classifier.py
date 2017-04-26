@@ -18,7 +18,10 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import os
+
 import tensorflow as tf
+import yarntf
 
 from tensorflow.python.ops import control_flow_ops
 from datasets import dataset_factory
@@ -378,6 +381,22 @@ def _get_variables_to_train():
 
 
 def main(_):
+  cluster, server = yarntf.createClusterServer()
+
+  # overwrite flags
+  FLAGS.job_name = os.environ["JOB_NAME"]
+  FLAGS.task = int(os.environ["TASK_INDEX"])
+  FLAGS.worker_replicas = int(os.environ["WORKERS"])
+  assert(FLAGS.num_ps_tasks == int(os.environ["PSES"]))
+  FLAGS.master = server.target
+
+  if FLAGS.job_name == "ps":
+    server.join()
+  else:
+    train()
+
+
+def train():
   if not FLAGS.dataset_dir:
     raise ValueError('You must supply the dataset directory with --dataset_dir')
 
@@ -550,6 +569,7 @@ def main(_):
 
     # Merge all summaries together.
     summary_op = tf.summary.merge(list(summaries), name='summary_op')
+    summary_writer = tf.summary.FileWriter(os.environ["TB_DIR"], graph=tf.get_default_graph())
 
 
     ###########################
@@ -566,6 +586,7 @@ def main(_):
         log_every_n_steps=FLAGS.log_every_n_steps,
         save_summaries_secs=FLAGS.save_summaries_secs,
         save_interval_secs=FLAGS.save_interval_secs,
+        summary_writer=summary_writer,
         sync_optimizer=optimizer if FLAGS.sync_replicas else None)
 
 
