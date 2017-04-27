@@ -13,7 +13,7 @@ At first, we assume that Python is installed on the cluster. If needed dependenc
 1. To get the data set for this example, TFRecords or CSV, please follow [this guide](https://github.com/yahoo/TensorFlowOnSpark/wiki/GetStarted_YARN).
 2. Clone and `mvn install`: https://github.com/hopshadoop/hops-tensorflow
 3. Locate _yarntf-submit_ in _hops-tensorflow/bin_.
-3. Run distributed training:
+4. Run distributed training:
 ```
 $HADOOP_HOME/bin/hadoop fs -rm -r mnist_model
 $HOPSTF_HOME/bin/yarntf-submit \
