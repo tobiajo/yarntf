@@ -1,4 +1,4 @@
-yarntf
+yarntf (moved to: hops-tensorflow)
 ======
 
 ``yarntf`` simplifies the distributed TensorFlow programming model, for running
