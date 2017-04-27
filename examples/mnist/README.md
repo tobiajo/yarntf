@@ -15,13 +15,14 @@ At first, we assume that Python is installed on the cluster. If needed dependenc
 3. Locate _yarntf-submit_ in _hops-tensorflow/bin_.
 3. Run distributed training:
 ```
-yarntf-submit \
-        --queue                         default \
-        --workers                       3 \
-        --pses                          1 \
-        --memory                        1024 \
-        --vcores                        1 \
-        --main mnist.py \
+$HADOOP_HOME/bin/hadoop fs -rm -r mnist_model
+$HOPSTF_HOME/bin/yarntf-submit \
+        --queue         default \
+        --workers       3 \
+        --pses          1 \
+        --memory        1024 \
+        --vcores        1 \
+        --main $HOPSTF_HOME/yarntf/examples/mnist/mnist.py \
         --args \
         --images mnist/tfr/train \
         --format tfr \
@@ -30,13 +31,14 @@ yarntf-submit \
 ```
 5. Run distributed inference:
 ```
-yarntf-submit \
-        --queue                         default \
-        --workers                       3 \
-        --pses                          1 \
-        --memory                        1024 \
-        --vcores                        1 \
-        --main mnist.py \
+$HADOOP_HOME/bin/hadoop fs -rm -r mnist_predictions
+$HOPSTF_HOME/bin/yarntf-submit \
+        --queue         default \
+        --workers       3 \
+        --pses          1 \
+        --memory        1024 \
+        --vcores        1 \
+        --main $HOPSTF_HOME/yarntf/examples/mnist/mnist.py \
         --args \
         --images mnist/tfr/test \
         --mode inference \
