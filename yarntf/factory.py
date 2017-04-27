@@ -12,6 +12,17 @@ from yarntf.clusterspecgenerator_client import ClusterSpecGeneratorClient
 
 
 def createClusterSpec(am_address, application_id, job_name, task_index):
+  """Create ClusterSpec, start TensorBoard and register to ApplicationMaster.
+
+  Args:
+    am_address: A string giving [ip:port] to the ApplicationMaster's ClusterSpecGeneratorServer.
+    application_id: A string representing the YARN application id.
+    job_name: A string specifying "worker" or "ps".
+    task_index: An integer specifying task index.
+
+  Returns:
+    A generated `ClusterSpec` for the application.
+  """
   client = ClusterSpecGeneratorClient(am_address)
 
   tb_port = -1
@@ -67,6 +78,10 @@ def createClusterSpec(am_address, application_id, job_name, task_index):
 
 
 def createClusterServer():
+  """Create ClusterSpec and Server.
+
+   Returns: A generated `ClusterSpec` for the application, and a `Server` instantiated from the same `ClusterSpec`.
+  """
   am_address = os.environ['AM_ADDRESS']
   application_id = os.environ['APPLICATION_ID']
   job_name = os.environ['JOB_NAME']
